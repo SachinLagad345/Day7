@@ -3,7 +3,7 @@ package com.bridgelabz.day7;
 import java.util.Random;
 
 public class GamblerStimulator {
-	
+
 	int stake = 100;
 
 	public void putBet() {
@@ -23,10 +23,13 @@ public class GamblerStimulator {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-
 		GamblerStimulator gm = new GamblerStimulator();
-		gm.putBet();
-
+		int high = gm.stake + (int) Math.floor(0.5 * gm.stake);
+		int low = gm.stake - (int) Math.floor(0.5 * gm.stake);
+		while (!(gm.stake == high || gm.stake == low)) {
+			gm.putBet();
+		}
+		System.out.println("Todays bet game ended! Money is " + gm.stake + "$");
 	}
 
 }
