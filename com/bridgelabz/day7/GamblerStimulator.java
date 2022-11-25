@@ -6,7 +6,6 @@ public class GamblerStimulator {
 
 	int stake = 100;
 
-	
 	public void putBet() {
 		Random rnd = new Random();
 		int reslt = rnd.nextInt(2);
@@ -24,25 +23,33 @@ public class GamblerStimulator {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-			GamblerStimulator gm = new GamblerStimulator();
-			int dayCount = 1;
+		GamblerStimulator gm = new GamblerStimulator();
+		String dcsn[] = new String[30];
+		int reslts[] = new int[30];
+		int dayCount = 1;
 
-			while(dayCount <= 20)
-			{
-				int high = gm.stake + (int)Math.floor(0.5 * gm.stake);
-				int low = gm.stake - (int)Math.floor(0.5 * gm.stake);
-				while( !(gm.stake == high || gm.stake == low) )
-				{
-					gm.putBet();
-				}
-				System.out.println("Todays bet game for day "+ dayCount + " ended! Money is " + gm.stake+"$\n");
-				dayCount++;
+		while (dayCount <= 30) {
+			int startStake = gm.stake;
+			int high = gm.stake + (int) Math.floor(0.5 * gm.stake);
+			int low = gm.stake - (int) Math.floor(0.5 * gm.stake);
+			while (!(gm.stake == high || gm.stake == low)) {
+				gm.putBet();
 			}
-			
-			if(gm.stake > 100)
-				System.out.println("Stake won in 20 days is " + (gm.stake-100) + "$");
-			else
-				System.out.println("Stake lost in 20 days is " + (100-gm.stake) + "$");
+			System.out.println("Todays bet game for day " + dayCount + " ended! Money is " + gm.stake + "$\n");
+			if (gm.stake > startStake) {
+				dcsn[dayCount - 1] = "Won";
+				reslts[dayCount - 1] = gm.stake - startStake;
+			} else {
+				dcsn[dayCount - 1] = "Lost";
+				reslts[dayCount - 1] = startStake - gm.stake;
+			}
+			dayCount++;
+		}
+
+		System.out.println("\n Monthly Report \n ");
+		for (int i = 0; i < dcsn.length; i++) {
+			System.out.println("Amount " + dcsn[i] + " for day " + (i + 1) + " is " + reslts[i] + "$");
+		}
 	}
 
 }
